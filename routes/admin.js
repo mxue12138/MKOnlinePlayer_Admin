@@ -20,6 +20,10 @@ router.get('/index.html', (req, res) => {
 });
 
 router.get('/login.html', (req, res) => {
+  if (req.cookies.username == user.username && req.cookies.password == user.password) {
+    res.redirect('/admin/index.html');
+    return;
+  }
   res.render('admin/login');
 });
 

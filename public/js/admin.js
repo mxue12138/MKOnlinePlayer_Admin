@@ -34,10 +34,19 @@ $(function () {
         if (data.code == 1) {
           location.href = '/admin/index.html';
         } else {
-          alert('登陆失败');
+          alert('登陆失败，账号或密码错误');
         }
       }
     })
+  });
+  $('.navbar .navbar-link').click(function () {
+    $.cookie('username', null, {
+      path:'/',
+    });
+    $.cookie('password', null, {
+      path:'/',
+    });
+    location.href = '/admin/login.html'
   });
   $('.music_list .update').click(function () {
     var music_list = [];
@@ -62,7 +71,7 @@ $(function () {
       success: function (data) {
         if (data.code == 1) {
           alert('保存成功');
-          that.siblings('p').last().children('a').show()[0].href = 'https://music.163.com/#/playlist?id=' + that.siblings('p').last().children('input').val();
+          that.siblings('form').last().children('.form-group').children('a').show()[0].href = 'https://music.163.com/#/playlist?id=' + that.siblings('p').last().children('input').val();
         } else {
           alert('保存失败');
         }
@@ -70,15 +79,14 @@ $(function () {
     })
   });
   $('.music_list .add').click(function () {
-    var clone = $(this).siblings('p').last().clone(true);
-    clone.children('input').val('');
-    clone.children('a').hide()[0].href = '';
-    clone.children('a')[0].href = '';
-    $(this).siblings('p').last().after(clone);
+    var clone = $(this).siblings('form').last().clone(true);
+    clone.find('.id').val('');
+    clone.find('.link').hide()[0].href = '';
+    $(this).siblings('form').last().after(clone);
   });
   $('.music_list .del').click(function () {
     if (confirm('确认要删除吗？')) {
-      $(this).parent().remove();
+      $(this).parent().parent().remove();
       var music_list = [];
       for (var i = 0; i < $('.music_list input').length; i++) {
         if (!$('.music_list input').eq(i).val().trim()) {
