@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>后台管理首页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="/plugns/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/admin.js"></script>
+</head>
+
+<body>
+  <div class="music_list">
+    <fieldset>
+      <legend>歌单管理</legend>
+      <% for (let i = 0; i < music_list.length; i++) { %>
+      <p>
+        <input type="text" value="<%= music_list[i].id %>" onkeyup="value=value.replace(/[^\d]/g,'')">
+        <a href="https://music.163.com/#/playlist?id=<%= music_list[i].id %>" target="_blank">点击打开歌单页面</a>
+        <button class="del">删除</button>
+      </p>
+      <% } %>
+      <button class="update">保存</button>
+      <button class="add">添加</button>
+    </fieldset>
+  </div>
+  <div class="index">
+    <fieldset>
+      <legend>网站管理</legend>
+      <p>
+        首页标题：<input type="text" value="<%= index.title %>">
+      </p>
+      <p>
+        首页描述：<input type="text" value="<%= index.description %>">
+      </p>
+      <p>
+        首页关键词：<input type="text" value="<%= index.keywords %>">
+      </p>
+      <p>
+        首页logo下的文本：<input type="text" value="<%= index.logo_text %>">
+      </p>
+      <p>
+        首页底部代码：<textarea><%= index.footer %></textarea>
+      </p>
+      <button class="update">保存</button>
+    </fieldset>
+  </div>
+</body>
+
+</html>
