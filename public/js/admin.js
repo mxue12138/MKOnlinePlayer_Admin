@@ -127,21 +127,54 @@ $(function () {
   $('.index .update').click(function () {
     var notice_show = $('.index #notice_show input:radio:checked').eq(0).val();
     notice_show = notice_show == 'false' ? false : true;
+    var indexData = {
+      'title': $('.index #title').val().trim(),
+      'description': $('.index #description').val().trim(),
+      'keywords': $('.index #keywords').val().trim(),
+      'logo_text': $('.index #logo_text').val().trim(),
+      'footer': $('.index #footer').val().trim(),
+      'notice_show': notice_show,
+      'notice': $('.index #notice').val().trim()
+    }
     $.ajax({
       url: '/admin/api/index',
       type: 'POST',
       contentType: 'application/json',
       dataType: 'json',
       data: JSON.stringify({
-        'index': {
-          'title': $('.index #title').val().trim(),
-          'description': $('.index #description').val().trim(),
-          'keywords': $('.index #keywords').val().trim(),
-          'logo_text': $('.index #logo_text').val().trim(),
-          'footer': $('.index #footer').val().trim(),
-          'notice_show': notice_show,
-          'notice': $('.index #notice').val().trim()
+        'index': indexData
+      }),
+      success: function (data) {
+        if (data.code == 1) {
+          layer.msg('保存成功');
+        } else {
+          layer.msg('保存失败');
         }
+      }
+    })
+  });
+  $('.player .update').click(function () {
+    var playerData =  {
+      'api': $('.player #api').val(),
+      'loadcount': $('.player #loadcount').val(),
+      'method': $('.player #method').val() == 'false' ? false : true,
+      'defaultlist': $('.player #defaultlist').val(),
+      'autoplay': $('.player #autoplay').val() == 'false' ? false : true,
+      'coverbg': $('.player #coverbg').val() == 'false' ? false : true,
+      'mcoverbg': $('.player #mcoverbg').val() == 'false' ? false : true,
+      'dotshine': $('.player #dotshine').val() == 'false' ? false : true,
+      'mdotshine': $('.player #mdotshine').val() == 'false' ? false : true,
+      'volume': $('.player #volume').val(),
+      'version': $('.player #version').val(),
+      'debug': $('.player #debug').val() == 'false' ? false : true
+    }
+    $.ajax({
+      url: '/admin/api/player',
+      type: 'POST',
+      contentType: 'application/json',
+      dataType: 'json',
+      data: JSON.stringify({
+        'player': playerData
       }),
       success: function (data) {
         if (data.code == 1) {

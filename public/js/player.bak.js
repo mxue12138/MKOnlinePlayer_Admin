@@ -6,7 +6,7 @@
  *************************************************/
 // 播放器功能配置
 var mkPlayer = {
-    api: "https://music_api.dns.24mz.cn/", // api地址
+    api: "api.php", // api地址
     loadcount: 20,  // 搜索结果一次加载多少条
     method: "POST",     // 数据传输方式(POST/GET)
     defaultlist: 3,    // 默认要显示的播放列表编号
@@ -180,9 +180,9 @@ function updateProgress(){
     // 暂停状态不管
     if(rem.paused !== false) return true;
     // 同步进度条
-	music_bar.goto(rem.audio[0].currentTime / rem.audio[0].duration);
-    // 同步歌词显示	
-	scrollLyric(rem.audio[0].currentTime);
+    music_bar.goto(rem.audio[0].currentTime / rem.audio[0].duration);
+    // 同步歌词显示   
+    scrollLyric(rem.audio[0].currentTime);
 }
 
 // 显示的列表中的某一项点击后的处理函数

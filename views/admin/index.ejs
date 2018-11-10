@@ -83,15 +83,15 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="title">标题：</label>
+                        <label for="title">首页标题：</label>
                         <input type="text" class="form-control" id="title" value="<%= index.title %>">
                     </div>
                     <div class="form-group">
-                        <label for="description">描述：</label>
+                        <label for="description">首页描述：</label>
                         <input type="text" class="form-control" id="description" value="<%= index.description %>">
                     </div>
                     <div class="form-group">
-                        <label for="keywords">关键词：</label>
+                        <label for="keywords">首页关键词：</label>
                         <input type="text" class="form-control" id="keywords" value="<%= index.keywords %>">
                     </div>
                     <div class="form-group">
@@ -99,6 +99,7 @@
                         <input type="text" class="form-control" id="logo_text" value="<%= index.logo_text %>">
                     </div>
                     <div class="form-group">
+                        <label>首页公告是否显示：</label>
                         <div class="radio" id="notice_show">
                           <label>
                             <input type="radio" name="notice_show" value="true" <%= index.notice_show ? "checked" : "" %>>
@@ -111,12 +112,92 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="notice">首页公告：</label>
+                        <label for="notice">首页公告（可写html标签）：</label>
                         <textarea class="form-control" id="notice" rows="5"><%= index.notice %></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="footer">底部代码块：</label>
+                        <label for="footer">首页底部信息（不显示）：</label>
                         <textarea class="form-control" id="footer" rows="5"><%= index.footer %></textarea>
+                    </div>
+                    <hr>
+                    <button type="button" class="update btn btn-success">保存</button>
+                </div>
+            </div>
+        </div>
+        <div class="player col-md-offset-2 col-sm-offset-1 col-md-8 col-sm-10 col-xs-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">播放器配置</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="api">api地址：</label>
+                        <input type="text" class="form-control" id="api" value="<%= player.api %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="loadcount">搜索结果一次加载多少条：</label>
+                        <input type="text" class="form-control" id="loadcount" value="<%= player.loadcount %>" onkeyup="value=value.replace(/[^\d]/g,'')">
+                    </div>
+                    <div class="form-group">
+                        <label for="method">数据传输方式（GET/POST)：</label>
+                        <select class="form-control" id="method">
+                          <option value="true" <%= player.method == 'POST' ? "selected" : "" %>>POST</option>
+                          <option value="false" <%= player.method == 'GET' ? "selected" : "" %>>GET</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="defaultlist">默认显示的播放列表编号：</label>
+                        <input type="text" class="form-control" id="defaultlist" value="<%= player.defaultlist %>" onkeyup="value=value.replace(/[^\d]/g,'')">
+                    </div>
+                    <div class="form-group">
+                        <label for="autoplay">是否自动播放：</label>
+                        <select class="form-control" id="autoplay">
+                          <option value="true" <%= player.autoplay ? "selected" : "" %>>开启</option>
+                          <option value="false" <%= !player.autoplay ? "selected" : "" %>>关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="coverbg">是否开启封面背景：</label>
+                        <select class="form-control" id="coverbg">
+                          <option value="true" <%= player.coverbg ? "selected" : "" %>>开启</option>
+                          <option value="false" <%= !player.coverbg ? "selected" : "" %>>关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mcoverbg">[移动端]是否开启封面背景：</label>
+                        <select class="form-control" id="mcoverbg">
+                          <option value="true" <%= player.mcoverbg ? "selected" : "" %>>开启</option>
+                          <option value="false" <%= !player.mcoverbg ? "selected" : "" %>>关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dotshine">播放进度条闪动效果：</label>
+                        <select class="form-control" id="dotshine">
+                          <option value="true" <%= player.dotshine ? "selected" : "" %>>开启</option>
+                          <option value="false" <%= !player.dotshine ? "selected" : "" %>>关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mdotshine">[移动端]播放进度条闪动效果：</label>
+                        <select class="form-control" id="mdotshine">
+                          <option value="true" <%= player.mdotshine ? "selected" : "" %>>开启</option>
+                          <option value="false" <%= !player.mdotshine ? "selected" : "" %>>关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="volume">默认音量值(0~1之间)：</label>
+                        <input type="text" class="form-control" id="volume" value="<%= player.volume %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="version">播放器当前版本号：</label>
+                        <input disabled type="text" class="form-control" id="version" value="<%= player.version %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="debug">是否开启调试模式：</label>
+                        <select class="form-control" id="debug">
+                          <option value="true" <%= player.debug ? "selected" : "" %>>开启</option>
+                          <option value="false" <%= !player.debug ? "selected" : "" %>>关闭</option>
+                        </select>
                     </div>
                     <hr>
                     <button type="button" class="update btn btn-success">保存</button>
