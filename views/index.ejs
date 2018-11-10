@@ -148,8 +148,20 @@
 <!-- 站长统计代码 -->
 <span style="display: none">
     <!-- 各类统计代码都放在这里…… -->
-    <%= data.footer %>
+    <%- data.footer %>
 </span>
+
+<% if (data.notice_show) { %>
+<script>
+    layer.open({
+        btn: ['我知道了'],
+        title: '公告',
+        shadeClose: 'true',
+        maxWidth: 340,
+        content: '<%- data.notice %>'
+    });
+</script>
+<% } %>
 
 </body>
 </html>

@@ -3,13 +3,13 @@ $(function () {
     if(event.keyCode == 13){
       if ($('.login .username').is(":focus")) {
         if (!$('.login .username').val().trim()) {
-          alert('账号不能为空');
+          layer.msg('账号不能为空');
           return;
         }
         $('.login .password').focus();
       } else if ($('.login .password').is(":focus")) {
         if (!$('.login .password').val().trim()) {
-          alert('密码不能为空');
+          layer.msg('密码不能为空');
           return;
         }
         $('.login .login').click();
@@ -18,7 +18,7 @@ $(function () {
   });
   $('.login .login').click(function () {
     if (!$('.login .username').val().trim() || !$('.login .password').val().trim()) {
-      alert('账号或密码不能为空');
+      layer.msg('账号或密码不能为空');
       return;
     }
     $.ajax({
@@ -34,25 +34,31 @@ $(function () {
         if (data.code == 1) {
           location.href = '/admin/index.html';
         } else {
-          alert('登陆失败，账号或密码错误');
+          layer.msg('登陆失败，账号或密码错误');
         }
       }
     })
   });
   $('.navbar .navbar-link').click(function () {
-    $.cookie('username', null, {
-      path:'/',
-    });
-    $.cookie('password', null, {
-      path:'/',
-    });
-    location.href = '/admin/login.html'
+    $.ajax({
+      url: '/admin/api/logout',
+      type: 'POST',
+      dataType: 'json',
+      success: function (data) {
+        if (data.code == 1) {
+          layer.msg('退出登陆成功');
+          location.href = '/admin/login.html';
+        } else {
+          layer.msg('退出登陆失败');
+        }
+      }
+    })
   });
   $('.music_list .update').click(function () {
     var music_list = [];
     for (var i = 0; i < $('.music_list input').length; i++) {
       if (!$('.music_list input').eq(i).val().trim()) {
-        alert('歌单不能为空');
+        layer.msg('歌单不能为空');
         return;
       }
       music_list.push({
@@ -70,10 +76,10 @@ $(function () {
       }),
       success: function (data) {
         if (data.code == 1) {
-          alert('保存成功');
-          that.siblings('form').last().children('.form-group').children('a').show()[0].href = 'https://music.163.com/#/playlist?id=' + that.siblings('p').last().children('input').val();
+          layer.msg('保存成功');
+          that.siblings('form').last().children('.form-group').children('a').show()[0].href = 'https://music.163.com/#/playlist?id=' + that.siblings('form').last().find('input').val();
         } else {
-          alert('保存失败');
+          layer.msg('保存失败');
         }
       }
     })
@@ -85,19 +91,21 @@ $(function () {
     $(this).siblings('form').last().after(clone);
   });
   $('.music_list .del').click(function () {
-    if (confirm('确认要删除吗？')) {
-      $(this).parent().parent().remove();
+    var that = $(this);
+    layer.confirm('确认要删除吗？', {
+      btn: ['确认','取消']
+    }, function(){
+      that.parent().parent().remove();
       var music_list = [];
       for (var i = 0; i < $('.music_list input').length; i++) {
         if (!$('.music_list input').eq(i).val().trim()) {
-          alert('歌单不能为空');
+          layer.msg('歌单不能为空');
           return;
         }
         music_list.push({
           'id': $('.music_list input').eq(i).val().trim()
         });
       }
-      var that = $(this);
       $.ajax({
         url: '/admin/api/music_list',
         type: 'POST',
@@ -108,15 +116,17 @@ $(function () {
         }),
         success: function (data) {
           if (data.code == 1) {
-            alert('删除成功');
+            layer.msg('删除成功');
           } else {
-            alert('删除失败');
+            layer.msg('删除失败');
           }
         }
       })
-    }
+    })
   });
   $('.index .update').click(function () {
+    var notice_show = $('.index #notice_show input:radio:checked').eq(0).val();
+    notice_show = notice_show == 'false' ? false : true;
     $.ajax({
       url: '/admin/api/index',
       type: 'POST',
@@ -124,18 +134,20 @@ $(function () {
       dataType: 'json',
       data: JSON.stringify({
         'index': {
-          'title': $('.index input').eq(0).val().trim(),
-          'description': $('.index input').eq(1).val().trim(),
-          'keywords': $('.index input').eq(2).val().trim(),
-          'logo_text': $('.index input').eq(3).val().trim(),
-          'footer': $('.index textarea').val().trim()
+          'title': $('.index #title').val().trim(),
+          'description': $('.index #description').val().trim(),
+          'keywords': $('.index #keywords').val().trim(),
+          'logo_text': $('.index #logo_text').val().trim(),
+          'footer': $('.index #footer').val().trim(),
+          'notice_show': notice_show,
+          'notice': $('.index #notice').val().trim()
         }
       }),
       success: function (data) {
         if (data.code == 1) {
-          alert('保存成功');
+          layer.msg('保存成功');
         } else {
-          alert('保存失败');
+          layer.msg('保存失败');
         }
       }
     })

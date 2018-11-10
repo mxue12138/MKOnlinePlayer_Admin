@@ -1,9 +1,10 @@
 let express = require('express');
 let router = express.Router();
-let index = require(process.cwd() + '/tools/index');
+
+let index = require(process.cwd() + '/modules/index');
 
 router.get('/', (req, res) => {
-  res.render('index', { data: index.read() });
+  index(req, res);
 });
 
 module.exports = router;

@@ -1,30 +1,19 @@
 let express = require('express');
 let router = express.Router();
-let music_list = require(process.cwd() + '/tools/music_list');
-let index = require(process.cwd() + '/tools/index');
-let user = require(process.cwd() + '/data/user.json');
+
+let index = require(process.cwd() + '/modules/admin/index');
+let login = require(process.cwd() + '/modules/admin/login');
 
 router.get('/', (req, res) => {
   res.redirect('/admin/index.html');
 });
 
 router.get('/index.html', (req, res) => {
-  if (req.cookies.username == user.username && req.cookies.password == user.password) {
-    res.render('admin/index', {
-      music_list: music_list.read(),
-      index: index.read()
-    });
-  } else {
-    res.redirect('/admin/login.html');
-  }
+  index(req, res);
 });
 
 router.get('/login.html', (req, res) => {
-  if (req.cookies.username == user.username && req.cookies.password == user.password) {
-    res.redirect('/admin/index.html');
-    return;
-  }
-  res.render('admin/login');
+  login(req, res);
 });
 
 module.exports = router;

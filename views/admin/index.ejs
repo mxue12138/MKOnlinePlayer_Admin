@@ -12,6 +12,7 @@
     <![endif]-->
     <link href="/plugns/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="/js/jquery.min.js"></script>
+    <script src="/plugns/layer/layer.js"></script>
     <script src="/js/jquery.cookie.min.js"></script>
     <script src="/js/admin.js"></script>
     <style>
@@ -26,18 +27,30 @@
         left: 0;
         right: 0;
         width: 100%;
+        height: 50px;
     }
-    .navbar img {
-        height: 100%;
+    .navbar .container-fluid {
+        height: 50px;
+    }
+    .navbar .navbar-let {
+        line-height: 50px;
+        margin: 0;
+        float: left;
     }
     .navbar .navbar-right {
-        margin-right: auto;
+        line-height: 50px;
+        margin: 0;
+        float: right;
+    }
+    .navbar img {
+        width: 32px;
+        height: 32px;
     }
     .container {
-        margin-top: 80px;
+        margin-top: 70px;
         margin-bottom: 40px;
     }
-    .container > h3 {
+    .container>h3 {
         font-size: 28px;
         color: #fff;
         margin-bottom: 35px;
@@ -50,13 +63,16 @@
 
 <body>
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">
+        <div class="container-fluid">
+            <p class="navbar-text navbar-let">
+                <a href="/">
             <img alt="MKOnlinePlayer_Admin" src="/favicon.ico">
           </a>
-        </div><p class="navbar-text navbar-right"><a href="javascript:;" class="navbar-link">退出登陆</a></p>
-      </div>
+            </p>
+            <p class="navbar-text navbar-right">
+                <a href="javascript:;" class="navbar-link">退出登陆</a>
+            </p>
+        </div>
     </nav>
     <div class="container">
         <h3 align="center">MKOnlinePlayer_Admin</h3>
@@ -83,6 +99,22 @@
                         <input type="text" class="form-control" id="logo_text" value="<%= index.logo_text %>">
                     </div>
                     <div class="form-group">
+                        <div class="radio" id="notice_show">
+                          <label>
+                            <input type="radio" name="notice_show" value="true" <%= index.notice_show ? "checked" : "" %>>
+                            显示
+                          </label>
+                          <label>
+                            <input type="radio" name="notice_show" value="false" <%= !index.notice_show ? "checked" : "" %>>
+                            隐藏
+                          </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="notice">首页公告：</label>
+                        <textarea class="form-control" id="notice" rows="5"><%= index.notice %></textarea>
+                    </div>
+                    <div class="form-group">
                         <label for="footer">底部代码块：</label>
                         <textarea class="form-control" id="footer" rows="5"><%= index.footer %></textarea>
                     </div>
@@ -98,19 +130,20 @@
                 </div>
                 <div class="panel-body">
                     <% for (let i = 0; i < music_list.length; i++) { %>
-                        <form class="form-group">
-                            <div class="form-group">
-                                <input type="text" class="id form-control" placeholder="请输入网易云歌单ID" value="<%= music_list[i].id %>" onkeyup="value=value.replace(/[^\d]/g,'')">
-                            </div>
-                            <div class="form-group">
-                                <a type="button" class="link btn btn-info" href="https://music.163.com/#/playlist?id=<%= music_list[i].id %>" target="_blank">打开</a>
-                                <button type="button" class="del btn btn-danger">删除</button>
-                            </div>
-                        </form>
-                        <% } %>
-                        <hr>
-                        <button type="button" class="update btn btn-success">保存</button>
-                        <button type="button" class="add btn btn-success">添加</button>
+                    <form class="form-group">
+                        <div class="form-group">
+                            <label for="id_<%= music_list[i].id %>">网易云歌单ID：</label>
+                            <input type="text" id="id_<%= music_list[i].id %>" class="id form-control" placeholder="请输入网易云歌单ID" value="<%= music_list[i].id %>" onkeyup="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                        <div class="form-group">
+                            <a type="button" class="link btn btn-info" href="https://music.163.com/#/playlist?id=<%= music_list[i].id %>" target="_blank">打开</a>
+                            <button type="button" class="del btn btn-danger">删除</button>
+                        </div>
+                    </form>
+                    <% } %>
+                    <hr>
+                    <button type="button" class="update btn btn-success">保存</button>
+                    <button type="button" class="add btn btn-success">添加</button>
                 </div>
             </div>
         </div>
