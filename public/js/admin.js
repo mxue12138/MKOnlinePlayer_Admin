@@ -125,7 +125,7 @@ $(function () {
     })
   });
   $('.index .update').click(function () {
-    var notice_show = $('.index #notice_show input:radio:checked').eq(0).val();
+    var notice_show = $('.index #notice_show').val();
     notice_show = notice_show == 'false' ? false : true;
     var indexData = {
       'title': $('.index #title').val().trim(),

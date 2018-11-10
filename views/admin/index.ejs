@@ -100,16 +100,10 @@
                     </div>
                     <div class="form-group">
                         <label>首页公告是否显示：</label>
-                        <div class="radio" id="notice_show">
-                          <label>
-                            <input type="radio" name="notice_show" value="true" <%= index.notice_show ? "checked" : "" %>>
-                            显示
-                          </label>
-                          <label>
-                            <input type="radio" name="notice_show" value="false" <%= !index.notice_show ? "checked" : "" %>>
-                            隐藏
-                          </label>
-                        </div>
+                        <select class="form-control" id="notice_show">
+                          <option value="true" <%= index.notice_show ? "selected" : "" %>>开启</option>
+                          <option value="false" <%= !index.notice_show ? "selected" : "" %>>关闭</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="notice">首页公告（可写html标签）：</label>
@@ -131,7 +125,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="api">api地址：</label>
+                        <label for="api">api地址（必填远程api，本地无法使用）：</label>
                         <input type="text" class="form-control" id="api" value="<%= player.api %>">
                     </div>
                     <div class="form-group">
