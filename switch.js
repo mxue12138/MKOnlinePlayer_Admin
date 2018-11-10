@@ -80,12 +80,7 @@ if (!fs.existsSync(process.cwd() + '/index.html')) {
   console.log('index.html不存在，请确认文件是否已经复制到当前目录下。');
 } else {
   fs.readFile(process.cwd() + '/index.html', 'utf8', (err, data) => {
-    try {
-      let cheerio = require('cheerio');
-    } catch {
-      console.log('cheerio未安装');
-      return;
-    }
+    let cheerio = require('cheerio');
     let $ = cheerio.load(data);
     let datas = {
       'title': $('title').text().trim(),
