@@ -158,7 +158,7 @@
         title: '公告',
         shadeClose: 'true',
         maxWidth: 340,
-        content: '<%- data.notice %>'
+        content: '<%- data.notice.replace(/[\r\n]/g, '') %>'
     });
 </script>
 <% } %>
