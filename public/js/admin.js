@@ -77,7 +77,10 @@ $(function () {
       success: function (data) {
         if (data.code == 1) {
           layer.msg('保存成功');
-          that.siblings('form').last().children('.form-group').children('a').show()[0].href = 'https://music.163.com/#/playlist?id=' + that.siblings('form').last().find('input').val();
+          for (var i = 0; i < that.siblings('.form-group').length; i++) {
+            that.siblings('.form-group').eq(i).find('a').show();
+            that.siblings('.form-group').eq(i).find('a')[0].href = 'https://music.163.com/#/playlist?id=' + that.siblings('.form-group').eq(i).find('input').val();
+          }
         } else {
           layer.msg('保存失败');
         }
