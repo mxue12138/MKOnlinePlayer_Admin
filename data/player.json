@@ -1,7 +1,7 @@
 {
   "api": "api.php",
   "loadcount": "20",
-  "method": true,
+  "method": "POST",
   "defaultlist": "3",
   "autoplay": false,
   "coverbg": true,

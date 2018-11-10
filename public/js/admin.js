@@ -157,7 +157,7 @@ $(function () {
     var playerData =  {
       'api': $('.player #api').val(),
       'loadcount': $('.player #loadcount').val(),
-      'method': $('.player #method').val() == 'false' ? false : true,
+      'method': $('.player #method').val(),
       'defaultlist': $('.player #defaultlist').val(),
       'autoplay': $('.player #autoplay').val() == 'false' ? false : true,
       'coverbg': $('.player #coverbg').val() == 'false' ? false : true,
