@@ -1,4 +1,3 @@
-let user = require(process.cwd() + '/data/user.json');
 let token = require(process.cwd() + '/tools/token');
 
 module.exports = (req, res) => {

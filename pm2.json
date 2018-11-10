@@ -1,0 +1,7 @@
+{
+  "apps": {
+    "name": "MKOnlineMusicPlayer_Admin",
+    "watch": true,
+    "script": "./bin/www"
+  }
+}

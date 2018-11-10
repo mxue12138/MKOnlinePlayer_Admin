@@ -1,4 +1,4 @@
-let player = require(process.cwd() + '/data/player.json');
+let player = require(process.cwd() + '/tools/player');
 
 module.exports = (req, res) => {
   let data = player;

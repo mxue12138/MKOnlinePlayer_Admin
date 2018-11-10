@@ -1,6 +1,6 @@
 let music_list = require(process.cwd() + '/tools/music_list');
 let index = require(process.cwd() + '/tools/index');
-let player = require(process.cwd() + '/data/player.json');
+let player = require(process.cwd() + '/tools/player');
 let token = require(process.cwd() + '/tools/token');
 
 module.exports = (req, res) => {
@@ -8,7 +8,7 @@ module.exports = (req, res) => {
     res.render('admin/index', {
       music_list: music_list.read(),
       index: index.read(),
-      player: player
+      player: player.read()
     });
   } else {
     res.redirect('/admin/login.html');
