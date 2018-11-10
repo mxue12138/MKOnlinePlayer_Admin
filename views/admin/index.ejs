@@ -204,6 +204,7 @@
                 </div>
                 <div class="panel-body">
                     <% for (let i = 0; i < music_list.length; i++) { %>
+                    <% if (!music_list[i].name) { %>
                     <form class="form-group">
                         <div class="form-group">
                             <label for="id_<%= music_list[i].id %>">网易云歌单ID：</label>
@@ -214,6 +215,7 @@
                             <button type="button" class="del btn btn-danger">删除</button>
                         </div>
                     </form>
+                    <% } %>
                     <% } %>
                     <hr>
                     <button type="button" class="update btn btn-success">保存</button>

@@ -41,11 +41,11 @@ gogs：[https://gogs.itmxue.cn/mingxue/MKOnlinePlayer_Admin](https://gogs.itmxue
 4. 在服务器上任意一个文件夹内上传刚才下载的压缩包（宝塔用户建议上传到/www/wwwroot/下），然后解压。解压后会有一个MKOnlinePlayer_Admin_master文件夹，里面就是所有的代码了。
 5. 进入``MKOnlinePlayer_Admin_master/data/``下，打开``user.json``，里面的password后面的admin就是后台密码，修改下密码然后保存即可（不要删除两边的引号）。
 6. 使用SSH软件登录服务器（比如putty等），然后进入到你的项目目录下，比如宝塔用户就是/www/wwwroot/，那么执行命令`` cd /www/wwwroot/MKOnlinePlayer_Admin_master/``，就进入了程序目录。
-7. 进入到程序目录后执行``npm i``，执行完毕后执行``pm2 start ./bin/www``，执行完毕访问之前新建的那个网站就可以了。
+7. 进入到程序目录后执行``npm i``，执行完毕后执行``pm2 start bin/www``，执行完毕访问之前新建的那个网站就可以了，后台地址是admin。
 
 ## 注意事项
 
-1. 后台地址为``你的域名/admin/``默认密码都是admin，安装之前记得修改。
+1. 后台地址为``你的域名/admin/``，默认密码都是admin，安装之前记得修改。
 2. 安装完成以后登录后台，修改api地址，不修改没办法使用，node.js无法运行php文件，只能用远程的接口。
 3. 本程序无法添加修改自定义歌单，以后有时间可能会加上。可能吧。
 4. 网站前台所有的文件都在项目目录下的public目录里面，如需修改的话按需修改即可，首页是views下的index.ejs。
@@ -53,6 +53,7 @@ gogs：[https://gogs.itmxue.cn/mingxue/MKOnlinePlayer_Admin](https://gogs.itmxue
 6. 如果安装过程或者运行中有任何问题欢迎添加qq告诉我，没必要的问题不会回答的。
 7. 必须用pm2启动才可以，直接用node.js启动会出现修改后不生效的问题。
 8. 后台修改配置后需清除缓存才可以看到新内容。
+9. 如歌单较多的话，手动修改太麻烦，可以使用根目录下的``switch.js``进行批量转换，将你的``musicList.js``复制到当前项目目录下，执行``node switch.js``没有报错即可，本脚本使用正则表达式查找批量替换。注意，本脚本不会将自定义歌单转换进项目内，如需要使用自定义歌单，请等待项目更新（手动复制进去也会被覆盖）。
 
 ## 演示地址
 
