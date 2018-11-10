@@ -41,7 +41,7 @@ gogs：[https://gogs.itmxue.cn/mingxue/MKOnlinePlayer_Admin](https://gogs.itmxue
 4. 在服务器上任意一个文件夹内上传刚才下载的压缩包（宝塔用户建议上传到``/www/wwwroot/``下），然后解压。解压后会有一个``MKOnlinePlayer_Admin_master``文件夹，里面就是所有的代码了。
 5. 进入``MKOnlinePlayer_Admin_master/data/``下，打开``user.json``，里面的password后面的admin就是后台密码，修改下密码然后保存即可（不要删除两边的引号）。
 6. 使用SSH软件登录服务器（比如putty等），然后进入到你的项目目录下，比如宝塔用户就是``/www/wwwroot/``，那么执行命令`` cd /www/wwwroot/MKOnlinePlayer_Admin_master/``，就进入了程序目录。
-7. 进入到程序目录后执行``npm i && pm2 start pm2.json``，执行完毕访问之前新建的那个网站就可以了，后台地址是admin。
+7. 进入到程序目录后执行``chmod 755 -R ./* && npm i && pm2 start pm2.json``，执行完毕访问之前新建的那个网站就可以了，后台地址是admin。
 
 ## 注意事项
 
@@ -53,7 +53,7 @@ gogs：[https://gogs.itmxue.cn/mingxue/MKOnlinePlayer_Admin](https://gogs.itmxue
 6. 如果安装过程或者运行中有任何问题欢迎添加qq告诉我，没必要的问题不会回答的。
 7. 必须用pm2启动才可以，直接用node.js启动会出现修改后不生效的问题。
 8. 后台修改配置后需清除浏览器缓存才可以看到新内容，并不是没有修改成功。
-9. 本程序带有一个替换脚本（如果你是第一次使用就可以忽略本条了），可以把你以前的musitList.js、player.js、index.html的内容批量替换到本程序内，可以使用项目目录下的``start.sh``进行批量转换，将你的``musicList.js``和``player.js``还有``index.html``复制到当前项目目录下（也可以只复制一个），然后执行``./start.sh``，等待他执行完成没有报错即可，本脚本使用正则表达式查找批量替换。
+9. 本程序带有一个替换脚本（如果你是第一次使用就可以忽略本条了），可以把你以前的``musitList.js``、``player.js``、``index.html``的内容批量替换到本程序内，可以使用项目目录下的``start.sh``进行批量转换，将你的``musicList.js``和``player.js``还有``index.html``复制到当前项目目录下（也可以只复制一个），然后执行``chmod 755 -R ./* && ./start.sh``，等待他执行完成没有报错即可，本脚本使用正则表达式查找批量替换。
 10. 注意第九条的替换脚本不会将自定义歌单转换进项目内，如需要使用自定义歌单，请等待项目更新（手动复制进去也会被覆盖）。
 
 ## 演示地址
