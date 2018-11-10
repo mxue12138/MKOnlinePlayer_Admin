@@ -4,15 +4,13 @@
 
 本程序为MKOnlinePlayer的后台程序，后端使用node.js开发，前端基于MKOnlinePlayer，后台页面使用bootstrap和jquery开发，可以实现在线修改网站信息、对歌单进行增删改查、修改播放器配置等功能，并且不需要数据库。
 
-
-
+> 
+>
 > 本项目仅为个人学习参考，请勿用作商业用途，否则本人概不负责！
-
-
+>
+> 
 
 关于MKOnlinePlayer的详细解释请移步 [https://mkblog.cn/1060/](https://mkblog.cn/1060/)。
-
-
 
 ## 页面截图
 
@@ -41,7 +39,7 @@ gogs：https://gogs.itmxue.cn/mingxue/MKOnlinePlayer_Admin
 **本教程以宝塔面板为例子进行讲解。**
 
 1. 本项目依赖于node.js 8.x，需要先下载node.js，宝塔面板用户可以直接在软件管理下载“pm2”，安装完成以后进入下一步。
-2. 进入项目的github仓库（https://github.com/mxue12138/MKOnlinePlayer_Admin），点击右侧的“  Clone or download ”按钮，下载压缩包。
+2. 进入项目的github仓库（https://github.com/mxue12138/MKOnlinePlayer_Admin）， 点击右侧的“  Clone or download ”按钮，下载压缩包。
 3. 在服务器上新建一个网站，php版本默认或者选择纯静态都可以，然后选择反向代理，地址填``http://127.0.0.1:318``。
 4. 在服务器上任意一个文件夹内上传刚才下载的压缩包（宝塔用户建议上传到/www/wwwroot/下），然后解压。解压后会有一个MKOnlinePlayer_Admin_master文件夹，里面就是所有的代码了。
 5. 进入``MKOnlinePlayer_Admin_master/data/``下，打开``user.json``，里面的password后面的admin就是后台密码，修改下密码然后保存即可（不要删除两边的引号）。
@@ -61,7 +59,7 @@ gogs：https://gogs.itmxue.cn/mingxue/MKOnlinePlayer_Admin
 
 ## 演示地址
 
-https://music_admin.dns1.24mz.cn/，账号密码都为admin，演示地址仅供参考，无法修改配置信息（提示证书无效忽略即可）。
+https://music_admin.dns1.24mz.cn/，账号密码都为admin，演示地址仅供参考，首页功能无法使用，无法修改配置信息（提示证书无效忽略即可）。
 
 ## 联系作者
 
