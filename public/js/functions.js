@@ -381,6 +381,8 @@ function download(music) {
         layer.msg('这首歌不支持下载');
         return;
     }
+    open('/download?url=' + music.url + '&name=' + music.name + '&artist=' + music.artist);
+    return;
     openDownloadDialog(music.url, music.name + ' - ' + music.artist);
 }
 
