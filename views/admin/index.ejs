@@ -75,10 +75,29 @@
     </nav>
     <div class="container">
         <h3 align="center">MKOnlinePlayer_Admin</h3>
+        <div class="user col-md-offset-2 col-sm-offset-1 col-md-8 col-sm-10 col-xs-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">用户管理</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="title">管理员用户名：</label>
+                        <input type="text" class="form-control" id="username" value="<%= user.username %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="title">管理员密码：</label>
+                        <input type="text" class="form-control" id="password" value="<%= user.password %>">
+                    </div>
+                    <hr>
+                    <button type="button" class="update btn btn-success">保存</button>
+                </div>
+            </div>
+        </div>
         <div class="index col-md-offset-2 col-sm-offset-1 col-md-8 col-sm-10 col-xs-12">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3 class="panel-title">网站管理</h3>
+                    <h3 class="panel-title">首页管理</h3>
                 </div>
                 <div class="panel-body">
                     <div class="form-group">

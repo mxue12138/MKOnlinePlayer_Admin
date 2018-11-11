@@ -34,7 +34,7 @@ $(function () {
         if (data.code == 1) {
           location.href = '/admin/index.html';
         } else {
-          layer.msg('登陆失败，账号或密码错误');
+          layer.msg(data.msg);
         }
       }
     })
@@ -46,10 +46,10 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.code == 1) {
-          layer.msg('退出登陆成功');
+          layer.msg(data.msg);
           location.href = '/admin/login.html';
         } else {
-          layer.msg('退出登陆失败');
+          layer.msg(data.msg);
         }
       }
     })
@@ -76,13 +76,13 @@ $(function () {
       }),
       success: function (data) {
         if (data.code == 1) {
-          layer.msg('保存成功');
+          layer.msg(data.msg);
           for (var i = 0; i < that.siblings('.form-group').length; i++) {
             that.siblings('.form-group').eq(i).find('a').show();
             that.siblings('.form-group').eq(i).find('a')[0].href = 'https://music.163.com/#/playlist?id=' + that.siblings('.form-group').eq(i).find('input').val();
           }
         } else {
-          layer.msg('保存失败');
+          layer.msg(data.msg);
         }
       }
     })
@@ -119,24 +119,22 @@ $(function () {
         }),
         success: function (data) {
           if (data.code == 1) {
-            layer.msg('删除成功');
+            layer.msg(data.msg);
           } else {
-            layer.msg('删除失败');
+            layer.msg(data.msg);
           }
         }
       })
     })
   });
   $('.index .update').click(function () {
-    var notice_show = $('.index #notice_show').val();
-    notice_show = notice_show == 'false' ? false : true;
     var indexData = {
       'title': $('.index #title').val().trim(),
       'description': $('.index #description').val().trim(),
       'keywords': $('.index #keywords').val().trim(),
       'logo_text': $('.index #logo_text').val().trim(),
       'footer': $('.index #footer').val().trim(),
-      'notice_show': notice_show,
+      'notice_show': $('.index #notice_show').val() == 'false' ? false : true,
       'notice': $('.index #notice').val().trim()
     }
     $.ajax({
@@ -149,27 +147,34 @@ $(function () {
       }),
       success: function (data) {
         if (data.code == 1) {
-          layer.msg('保存成功');
+          layer.msg(data.msg);
         } else {
-          layer.msg('保存失败');
+          layer.msg(data.msg);
         }
       }
     })
   });
   $('.player .update').click(function () {
     var playerData =  {
-      'api': $('.player #api').val(),
-      'loadcount': $('.player #loadcount').val(),
-      'method': $('.player #method').val(),
-      'defaultlist': $('.player #defaultlist').val(),
-      'autoplay': $('.player #autoplay').val() == 'false' ? false : true,
-      'coverbg': $('.player #coverbg').val() == 'false' ? false : true,
-      'mcoverbg': $('.player #mcoverbg').val() == 'false' ? false : true,
-      'dotshine': $('.player #dotshine').val() == 'false' ? false : true,
-      'mdotshine': $('.player #mdotshine').val() == 'false' ? false : true,
-      'volume': $('.player #volume').val(),
-      'version': $('.player #version').val(),
-      'debug': $('.player #debug').val() == 'false' ? false : true
+      'api': $('.player #api').val().trim(),
+      'loadcount': $('.player #loadcount').val().trim(),
+      'method': $('.player #method').val().trim(),
+      'defaultlist': $('.player #defaultlist').val().trim(),
+      'autoplay': $('.player #autoplay').val().trim() == 'false' ? false : true,
+      'coverbg': $('.player #coverbg').val().trim() == 'false' ? false : true,
+      'mcoverbg': $('.player #mcoverbg').val().trim() == 'false' ? false : true,
+      'dotshine': $('.player #dotshine').val().trim() == 'false' ? false : true,
+      'mdotshine': $('.player #mdotshine').val().trim() == 'false' ? false : true,
+      'volume': $('.player #volume').val().trim(),
+      'version': $('.player #version').val().trim(),
+      'debug': $('.player #debug').val().trim() == 'false' ? false : true
+    }
+    for (var prop in playerData) {
+      console.log(playerData[prop]);
+      if (playerData[prop] === '') {
+        layer.msg('请确认已填写所有内容');
+        return;
+      }
     }
     $.ajax({
       url: '/admin/api/player',
@@ -181,11 +186,42 @@ $(function () {
       }),
       success: function (data) {
         if (data.code == 1) {
-          layer.msg('保存成功');
+          layer.msg(data.msg);
         } else {
-          layer.msg('保存失败');
+          layer.msg(data.msg);
         }
       }
+    })
+  });
+  $('.user .update').click(function () {
+    if (!$('.user #username').val().trim() || !$('.user #password').val().trim()) {
+      layer.msg('用户名或密码不能为空');
+      return;
+    }
+    layer.confirm('确认修改密码吗？', {
+      btn: ['确认','取消']
+    }, function () {
+      var userData = {
+        'username': $('.user #username').val().trim(),
+        'password': $('.user #password').val().trim()
+      }
+      $.ajax({
+        url: '/admin/api/user',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+          'user': userData
+        }),
+        success: function (data) {
+          if (data.code == 1) {
+            layer.msg(data.msg);
+            $('.navbar .navbar-link').click();
+          } else {
+            layer.msg(data.msg);
+          }
+        }
+      })
     })
   })
 })

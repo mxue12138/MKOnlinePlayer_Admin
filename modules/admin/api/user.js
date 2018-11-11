@@ -1,10 +1,10 @@
-let index = require(process.cwd() + '/tools/index');
+let user = require(process.cwd() + '/tools/user');
 let token = require(process.cwd() + '/tools/token');
 
 module.exports = (req, res) => {
   if(token(req)) {
-    if (req.body.index) {
-      index.update(req.body.index);
+    if (req.body.user) {
+      user.update(req.body.user);
       res.json({
         code: 1,
         msg: '保存成功'

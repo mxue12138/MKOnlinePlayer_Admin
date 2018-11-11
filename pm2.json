@@ -2,6 +2,9 @@
   "apps": {
     "name": "MKOnlineMusicPlayer_Admin",
     "watch": true,
-    "script": "./bin/www"
+    "script": "./bin/www",
+    "env": {
+      "NODE_ENV": "production"
+    }
   }
 }
