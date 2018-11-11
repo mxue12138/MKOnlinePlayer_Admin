@@ -45,7 +45,8 @@ module.exports = (req, res) => {
     }).on('end', () => {
       res.writeHead(200, {
         'Content-Type': 'application/x-download',
-        'Content-Disposition': 'attachment;filename=' + encodeURIComponent(name) + encodeURIComponent(artist) + url.substring(url.lastIndexOf('.'))
+        'Content-Disposition': 'attachment;filename=' + encodeURIComponent(name) + encodeURIComponent(artist) + url.substring(url.lastIndexOf('.')),
+        'Content-Length': response.headers['content-length']
       });
       res.end(Data, 'binary');
     })  
