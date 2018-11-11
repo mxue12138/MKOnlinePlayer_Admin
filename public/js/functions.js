@@ -381,7 +381,13 @@ function download(music) {
         layer.msg('这首歌不支持下载');
         return;
     }
-    open('/download?url=' + music.url + '&name=' + music.name + '&artist=' + music.artist);
+    var url = '/download?url=' + music.url + '&name=' + music.name + '&artist=' + music.artist;
+    var download_url = $('<span>');
+    download_url.attr('class', 'download');
+    download_url.attr('onclick', 'window.open("' + url + '")');
+    $('audio').after(download_url);
+    $('.download')[0].click();
+    $('.download').remove();
     return;
     openDownloadDialog(music.url, music.name + ' - ' + music.artist);
 }
