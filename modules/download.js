@@ -24,10 +24,12 @@ module.exports = (req, res) => {
     return;
   }
   let url = req.body.url;
-  let app;
+  let app, protocol;
   if (url.substring(0, url.indexOf('://')) == 'https') {
+    protocol = 'https://';
     app = https;
   } else if (url.substring(0, url.indexOf('://')) == 'http') {
+    protocol = 'http://';
     app = http;
   } else {
     res.json({
@@ -40,6 +42,8 @@ module.exports = (req, res) => {
   let artist = req.body.artist ? ' - ' + req.body.artist : '';
   let filename = name + artist + url.substring(url.lastIndexOf('.')).split('?')[0].split('#')[0];
   let filepath = process.cwd() + '/temp/' + req.body.source + '/' + filename;
+  let oldhost = url.substring(url.indexOf('://') + 3);
+  let host = oldhost.substring(0, oldhost.indexOf('/'));
   fs.exists(filepath, (data) => {
     if (data) {
       res.json({
@@ -53,7 +57,10 @@ module.exports = (req, res) => {
       request.get({
         url: url,
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36'
+          User-Agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36',
+          Referer: protocol + host,
+          Origin: protocol + host,
+          Host: host
         }
       }).on('end', (end) => {
         res.json({

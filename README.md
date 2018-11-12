@@ -57,7 +57,7 @@ gogs：[https://gogs.itmxue.cn/mingxue/MKOnlinePlayer_Admin](https://gogs.itmxue
 
 ## 演示地址
 
-[https://music_admin.dns1.24mz.cn/](https://music_admin.dns1.24mz.cn/) ，账号密码都为admin，演示地址仅供参考，首页功能无法使用，无法修改配置信息（提示证书无效忽略即可）。
+[http://music_admin.dns.24mz.cn/](http://music_admin.dns.24mz.cn/) ，账号密码都为admin，演示地址仅供参考，首页功能无法使用，无法修改配置信息。
 
 ## 联系作者
 
