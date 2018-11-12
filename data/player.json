@@ -1,5 +1,5 @@
 {
-  "api": "https://music_api.dns.24mz.cn/index.php",
+  "api": "api.php",
   "loadcount": "20",
   "method": "POST",
   "defaultlist": "3",
