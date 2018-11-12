@@ -13,7 +13,7 @@ router.get('/js/player.js', (req, res) => {
   player(req, res);
 });
 
-router.get('/download', (req, res) => {
+router.post('/download', (req, res) => {
   download(req, res);
 });
 

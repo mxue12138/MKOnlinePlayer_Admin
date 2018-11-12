@@ -3,26 +3,26 @@ let http = require('http');
 let fs = require('fs');
 
 module.exports = (req, res) => {
-  if (!req.query.url) {
+  if (!req.body.url) {
     res.json({
       code: 0,
       msg: '歌曲url有误'
     });
     return;
-  } else if (!req.query.name) {
+  } else if (!req.body.name) {
     res.json({
       code: 0,
       msg: '歌曲名称有误'
     });
     return;
-  } else if (!req.query.source) {
+  } else if (!req.body.source) {
     res.json({
       code: 0,
       msg: '歌曲类型有误'
     });
     return;
   }
-  let url = req.query.url;
+  let url = req.body.url;
   let app;
   if (url.substring(0, url.indexOf('://')) == 'https') {
     app = https;
@@ -35,13 +35,19 @@ module.exports = (req, res) => {
     });
     return;
   }
-  let name = req.query.name;
-  let artist = req.query.artist ? '-' + req.query.artist : '';
+  let name = req.body.name;
+  let artist = req.body.artist ? ' - ' + req.body.artist : '';
   let filename = name + artist + url.substring(url.lastIndexOf('.')).split('?')[0].split('#')[0];
-  let filepath = process.cwd() + '/public/temp/' + req.query.source + '/' + req.query.id + '.' + filename;
+  let filepath = process.cwd() + '/public/temp/' + req.body.source + '/' + filename;
   fs.exists(filepath, (data) => {
     if (data) {
-      res.download(filepath, filename);
+      res.json({
+        code: 1,
+        msg: '音频url获取成功',
+        data: {
+          url: './temp/' + req.body.source + '/' + filename
+        }
+      });
     } else {
       app.get(url, (response) => {
         let Data  = '';
@@ -53,7 +59,13 @@ module.exports = (req, res) => {
             if (err) {
               console.log(err);
             }
-            res.download(filepath, filename);
+            res.json({
+              code: 1,
+              msg: '音频url获取成功',
+              data: {
+                url: './temp/' + req.body.source + '/' + filename
+              }
+            });
           });
         })  
       })

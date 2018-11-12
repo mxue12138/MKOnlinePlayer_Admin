@@ -14,7 +14,16 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+  dotfiles: 'ignore',
+  index: false,
+  redirect: true,
+  setHeaders: function(res, path, stat) {
+    if (path.indexOf('/temp/') != -1) {
+      res.setHeader('Content-Type', 'application/x-download');
+    }
+  }
+}))
 
 app.use('/', require('./routes/index'));
 app.use('/admin', require('./routes/admin'));
