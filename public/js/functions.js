@@ -423,7 +423,10 @@ function download(music) {
             }
         },
         error: function (err) {
-            console.log(err);
+            clearInterval(loading);
+            layer.close(load);
+            layer.close(loadMsg);
+            layer.msg('下载失败，服务器错误');
         }
     });
     return;

@@ -1,6 +1,7 @@
 let https = require('https');
 let http = require('http');
 let fs = require('fs');
+let request = require('request');
 
 module.exports = (req, res) => {
   if (!req.body.url) {
@@ -38,7 +39,7 @@ module.exports = (req, res) => {
   let name = req.body.name;
   let artist = req.body.artist ? ' - ' + req.body.artist : '';
   let filename = name + artist + url.substring(url.lastIndexOf('.')).split('?')[0].split('#')[0];
-  let filepath = process.cwd() + '/public/temp/' + req.body.source + '/' + filename;
+  let filepath = process.cwd() + '/temp/' + req.body.source + '/' + filename;
   fs.exists(filepath, (data) => {
     if (data) {
       res.json({
@@ -49,26 +50,20 @@ module.exports = (req, res) => {
         }
       });
     } else {
-      app.get(url, (response) => {
-        let Data  = '';
-        response.setEncoding('binary'); 
-        response.on('data', (data) => {
-          Data += data;
-        }).on('end', () => {
-          fs.writeFile(filepath, Data, 'binary', (err) => {
-            if (err) {
-              console.log(err);
-            }
-            res.json({
-              code: 1,
-              msg: '音频url获取成功',
-              data: {
-                url: './temp/' + req.body.source + '/' + filename
-              }
-            });
-          });
-        })  
-      })
+      request.get({
+        url: url,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36'
+        }
+      }).on('end', (end) => {
+        res.json({
+          code: 1,
+          msg: '音频url获取成功',
+          data: {
+            url: './temp/' + req.body.source + '/' + filename
+          }
+        });
+      }).pipe(fs.createWriteStream(filepath));
     }
   })
 }
