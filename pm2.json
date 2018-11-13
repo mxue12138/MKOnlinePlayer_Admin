@@ -2,7 +2,7 @@
   "apps": {
     "name": "MKOnlineMusicPlayer_Admin",
     "watch": true,
-    "ignore_watch": "temp/",
+    "ignore_watch": "./temp",
     "script": "./bin/www",
     "log_date_format": "YYYY-MM-DD HH:mm:ss",
     "env": {

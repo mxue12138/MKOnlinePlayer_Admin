@@ -1,5 +1,3 @@
-let https = require('https');
-let http = require('http');
 let fs = require('fs');
 let request = require('request');
 
@@ -24,17 +22,15 @@ module.exports = (req, res) => {
     return;
   }
   let url = req.body.url;
-  let app, protocol;
+  let protocol;
   if (url.substring(0, url.indexOf('://')) == 'https') {
     protocol = 'https://';
-    app = https;
   } else if (url.substring(0, url.indexOf('://')) == 'http') {
     protocol = 'http://';
-    app = http;
   } else {
     res.json({
       code: 0,
-      msg: '协议有误，非法请求'
+      msg: 'url协议有误'
     });
     return;
   }
