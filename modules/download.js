@@ -44,33 +44,21 @@ module.exports = (req, res) => {
   let filepath = process.cwd() + '/temp/' + req.body.source + '/' + filename;
   let oldhost = url.substring(url.indexOf('://') + 3);
   let host = oldhost.substring(0, oldhost.indexOf('/'));
-  fs.exists(filepath, (data) => {
-    if (data) {
-      res.json({
-        code: 1,
-        msg: '音频url获取成功',
-        data: {
-          url: './temp/' + req.body.source + '/' + filename
-        }
-      });
-    } else {
-      request.get({
-        url: url,
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36',
-          'Referer': protocol + host,
-          'Origin': protocol + host,
-          'Host': host
-        }
-      }).on('end', (end) => {
-        res.json({
-          code: 1,
-          msg: '音频url获取成功',
-          data: {
-            url: './temp/' + req.body.source + '/' + filename
-          }
-        });
-      }).pipe(fs.createWriteStream(filepath));
+  request.get({
+    url: url,
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36',
+      'Referer': protocol + host,
+      'Origin': protocol + host,
+      'Host': host
     }
-  })
+  }).on('end', (end) => {
+    res.json({
+      code: 1,
+      msg: '音频url获取成功',
+      data: {
+        url: './temp/' + req.body.source + '/' + filename
+      }
+    });
+  }).pipe(fs.createWriteStream(filepath));
 }
