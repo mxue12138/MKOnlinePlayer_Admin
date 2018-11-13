@@ -19,7 +19,7 @@ app.use('/temp', express.static(path.join(__dirname, 'temp'), {
   index: false,
   setHeaders: function(res, paths, stat) {
     res.setHeader('Content-Disposition', 'attachment;filename=' + encodeURIComponent(path.basename(paths)));
-    res.setHeader('Content-Type', 'application/x-download');
+    res.setHeader('Content-Type', 'application/octet-stream');
   }
 }));
 app.use('/', express.static(path.join(__dirname, 'public')));
