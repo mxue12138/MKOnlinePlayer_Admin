@@ -2,6 +2,7 @@
   "apps": {
     "name": "MKOnlineMusicPlayer_Admin",
     "watch": true,
+    "instances": "4",
     "script": "./bin/www",
     "env": {
       "NODE_ENV": "production"
