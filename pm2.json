@@ -3,6 +3,7 @@
     "name": "MKOnlineMusicPlayer_Admin",
     "watch": true,
     "ignore_watch": "./temp",
+    "instances": "4",
     "script": "./bin/www",
     "log_date_format": "YYYY-MM-DD HH:mm:ss",
     "env": {
