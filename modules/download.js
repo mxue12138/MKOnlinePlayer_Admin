@@ -48,13 +48,13 @@ module.exports = (req, res) => {
       'Origin': protocol + host,
       'Host': host
     }
-  }).on('end', (end) => {
+  }).pipe(fs.createWriteStream(filepath).on('close', () => {
     res.json({
       code: 1,
       msg: '音频url获取成功',
       data: {
         url: './temp/' + req.body.source + '/' + filename
       }
-    });
-  }).pipe(fs.createWriteStream(filepath));
+    })
+  }))
 }
