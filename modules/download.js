@@ -37,6 +37,7 @@ module.exports = (req, res) => {
   let name = req.body.name;
   let artist = req.body.artist ? ' - ' + req.body.artist : '';
   let filename = name + artist + url.substring(url.lastIndexOf('.')).split('?')[0].split('#')[0];
+  filename = filename.replace('/', '&');
   let filepath = process.cwd() + '/temp/' + req.body.source + '/' + filename;
   let oldhost = url.substring(url.indexOf('://') + 3);
   let host = oldhost.substring(0, oldhost.indexOf('/'));
