@@ -170,7 +170,6 @@ $(function () {
       'debug': $('.player #debug').val().trim() == 'false' ? false : true
     }
     for (var prop in playerData) {
-      console.log(playerData[prop]);
       if (playerData[prop] === '') {
         layer.msg('请确认已填写所有内容');
         return;
