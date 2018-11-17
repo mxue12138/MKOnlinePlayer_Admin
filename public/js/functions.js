@@ -381,21 +381,39 @@ function thisShare(obj) {
 // 下载歌词
 function downloadLrc (obj) {
     var music = musicList[$(obj).data("list")].item[$(obj).data("index")];
-    ajaxLyric(music, function (a, b) {
-        if(a === '') {
-            layer.msg('没有歌词');
-            return;
+    if(!music.lyric_id) {
+        layer.msg('内部错误，参数有误');
+        return;
+    }
+    $.ajax({
+        type: mkPlayer.method,
+        url: mkPlayer.api,
+        data: "types=lyric&id=" + music.lyric_id + "&source=" + music.source,
+        dataType : "jsonp",
+        success: function(jsonData){
+            layer.closeAll();
+            if (mkPlayer.debug) {
+                console.debug("歌词获取成功");
+            }
+            if (jsonData.lyric) {
+                var artist = music.artist ? ' - ' + music.artist : '';
+                var filename = (music.name + artist + '.lrc').replace('/', '&');
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonData.lyric));
+                element.setAttribute('download', filename);
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            } else {
+                layer.msg('没有歌词');
+            }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            layer.msg('歌词读取失败 - ' + XMLHttpRequest.status);
+            console.error(XMLHttpRequest + textStatus + errorThrown);
         }
-        var artist = music.artist ? ' - ' + music.artist : '';
-        var filename = (music.name + artist + '.lrc').replace('/', '&');
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(a));
-        element.setAttribute('download', filename);
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-    })
+    });
 }
 
 // 下载歌曲
@@ -430,9 +448,8 @@ function download(music) {
         }),
         timeout: 15000,
         success: function(data){
+            layer.closeAll();
             clearInterval(loading);
-            layer.close(load);
-            layer.close(loadMsg);
             if (data.code == 1) {
                 if ($('.download').length == 0) {
                     var downDom = $('<iframe class="download" style="height: 0;width: 0;display: none;"></iframe>');
@@ -448,8 +465,7 @@ function download(music) {
         },
         error: function (err) {
             clearInterval(loading);
-            layer.close(load);
-            layer.close(loadMsg);
+            layer.closeAll();
             layer.msg('下载失败，服务器错误');
         }
     });
