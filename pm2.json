@@ -2,6 +2,9 @@
   "apps": {
     "name": "MKOnlineMusicPlayer_Admin",
     "watch": true,
+    "watch_options": {
+      "usePolling": true
+    },
     "ignore_watch": "./temp",
     "instances": "4",
     "script": "./bin/www",
