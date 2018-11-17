@@ -110,7 +110,7 @@ $(function(){
             '</span>' +
             '<div class="list-menu" data-no="' + num + '">' +
                 '<span class="list-icon icon-play" data-function="play" title="点击播放这首歌"></span>' +
-                '<span class="list-icon icon-download" data-function="download" title="点击下载这首歌"></span>' +
+                '<span class="list-icon icon-download list-mobile-menu" title="点击下载这首歌"></span>' +
                 '<span class="list-icon icon-share" data-function="share" title="点击分享这首歌"></span>' +
             '</div>';
             target.html(html);
@@ -290,6 +290,7 @@ function musicInfo(list, index) {
     
     tempStr += '<br><span class="info-title">操作：</span>' + 
     '<span class="info-btn" onclick="thisDownload(this)" data-list="' + list + '" data-index="' + index + '">下载</span>' + 
+    '<span style="margin-left: 10px" class="info-btn" onclick="downloadLrc(this)" data-list="' + list + '" data-index="' + index + '">下载歌词</span>' + 
     '<span style="margin-left: 10px" class="info-btn" onclick="thisShare(this)" data-list="' + list + '" data-index="' + index + '">外链</span>';
     
     layer.open({
@@ -372,6 +373,26 @@ function thisDownload(obj) {
 // 分享正在播放的这首歌
 function thisShare(obj) {
     ajaxUrl(musicList[$(obj).data("list")].item[$(obj).data("index")], ajaxShare);
+}
+
+// 下载歌词
+function downloadLrc (obj) {
+    var music = musicList[$(obj).data("list")].item[$(obj).data("index")];
+    ajaxLyric(music, function (a, b) {
+        if(a === '') {
+            layer.msg('没有歌词');
+            return;
+        }
+        var artist = music.artist ? ' - ' + music.artist : '';
+        var filename = (music.name + artist + '.lrc').replace('/', '&');
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(a));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    })
 }
 
 // 下载歌曲
