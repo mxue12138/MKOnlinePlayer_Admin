@@ -7,6 +7,7 @@ if (!fs.existsSync(process.cwd() + '/musicList.js')) {
     if (err) {
       console.log(err);
       console.log('修改失败，请确认musicList.js是否有读取权限');
+      return;
     }
     let reg = /musicList\s*?=\s*?([\s\S]*?);/;
     if (!reg.test(data)) {
@@ -56,6 +57,7 @@ if (!fs.existsSync(process.cwd() + '/player.js')) {
     if (err) {
       console.log(err);
       console.log('修改失败，请确认是player.js否有读取权限');
+      return;
     }
     let reg = /mkPlayer\s*?=\s*?([\s\S]*?);/;
     if (!reg.test(data)) {
@@ -80,6 +82,11 @@ if (!fs.existsSync(process.cwd() + '/index.html')) {
   console.log('index.html不存在，请确认文件是否已经复制到当前目录下。');
 } else {
   fs.readFile(process.cwd() + '/index.html', 'utf8', (err, data) => {
+    if (err) {
+      console.log(err);
+      console.log('修改失败，请确认是index.html否有读取权限');
+      return;
+    }
     let cheerio = require('cheerio');
     let $ = cheerio.load(data);
     let datas = {
