@@ -149,7 +149,7 @@ $(function(){
         var num = parseInt($(this).parent().data("no"));
         // 是用户列表，但是还没有加载数据
         if(musicList[num].item.length === 0 && musicList[num].creatorID) {
-            layer.msg('列表读取中...', {icon: 16,shade: 0.01,time: 500}); // 0代表加载的风格，支持0-2
+            layer.msg('列表读取中...', {icon: 16,shade: [0.75,'#000'],shadeClose: true,time: 500}); // 0代表加载的风格，支持0-2
             // ajax加载数据
             ajaxPlayList(musicList[num].id, num, loadList);
             return true;
@@ -164,10 +164,13 @@ $(function(){
             title: '请输入您的网易云 UID',
             // value: '',  // 默认值
             btn: ['确定', '取消', '帮助'],
+            shade: [0.75,'#000'],
+            shadeClose: true,
             btn3: function(index, layero){
                 layer.open({
                     title: '如何获取您的网易云UID？'
-                    ,shade: 0.6 //遮罩透明度
+                    ,shade: [0.75,'#000'] //遮罩透明度
+                    ,shadeClose: true
                     ,anim: 0 //0-6的动画形式，-1不开启
                     ,content: 
                     '1、首先<a href="http://music.163.com/" target="_blank">点我(http://music.163.com/)</a>打开网易云音乐官网<br>' +
@@ -295,7 +298,8 @@ function musicInfo(list, index) {
     
     layer.open({
         type: 0,
-        shade: false,
+        shade: [0.75,'#000'],
+        shadeClose: true,
         title: false, //不显示标题
         btn: false,
         content: tempStr
@@ -333,9 +337,8 @@ function searchBox() {
     '</div></form>';
     layer.open({
         type: 1,
-        shade: false,
         title: false, // 不显示标题
-        shade: 0.5,    // 遮罩颜色深度
+        shade: [0.75,'#000'],    // 遮罩颜色深度
         shadeClose: true,
         content: tmpHtml,
         cancel: function(){
@@ -406,7 +409,7 @@ function download(music) {
         time: 15000
     });
     var load = layer.load(0, {
-        shade: [0.3,'#000']
+        shade: [0.75,'#000'],
     });
     var loading = setTimeout(function () {
         layer.close(load);
@@ -494,6 +497,8 @@ function ajaxShare(music) {
     
     layer.open({
         title: '歌曲外链分享'
+        ,shade: [0.75,'#000']
+        ,shadeClose: true
         ,content: tmpHtml
     });
 }
@@ -550,7 +555,7 @@ function changeCover(music) {
 // 向列表中载入某个播放列表
 function loadList(list) {
     if(musicList[list].isloading === true) {
-        layer.msg('列表读取中...', {icon: 16,shade: 0.01,time: 500});
+        layer.msg('列表读取中...', {icon: 16,shade: [0.75,'#000'],time: 500});
         return true;
     }
     
@@ -672,27 +677,27 @@ function addListbar(types) {
 // 将时间格式化为 00:00 的格式
 // 参数：原始时间
 function formatTime(time){    
-	var hour,minute,second;
-	hour = String(parseInt(time/3600,10));
-	if(hour.length == 1) hour='0' + hour;
-	
-	minute=String(parseInt((time%3600)/60,10));
-	if(minute.length == 1) minute='0'+minute;
-	
-	second=String(parseInt(time%60,10));
-	if(second.length == 1) second='0'+second;
-	
-	if(hour > 0) {
-	    return hour + ":" + minute + ":" + second;
-	} else {
-	    return minute + ":" + second;
-	}
+  var hour,minute,second;
+  hour = String(parseInt(time/3600,10));
+  if(hour.length == 1) hour='0' + hour;
+  
+  minute=String(parseInt((time%3600)/60,10));
+  if(minute.length == 1) minute='0'+minute;
+  
+  second=String(parseInt(time%60,10));
+  if(second.length == 1) second='0'+second;
+  
+  if(hour > 0) {
+      return hour + ":" + minute + ":" + second;
+  } else {
+      return minute + ":" + second;
+  }
 }
 
 // url编码
 // 输入参数：待编码的字符串
 function urlEncode(String) {
-    return encodeURIComponent(String).replace(/'/g,"%27").replace(/"/g,"%22");	
+    return encodeURIComponent(String).replace(/'/g,"%27").replace(/"/g,"%22");  
 }
 
 // 在 ajax 获取了音乐的信息后再进行更新
@@ -938,7 +943,7 @@ function playerSavedata(key, data) {
     data = JSON.stringify(data);
     // 存储，IE6~7 不支持HTML5本地存储
     if (window.localStorage) {
-        localStorage.setItem(key, data);	
+        localStorage.setItem(key, data);  
     }
 }
 
