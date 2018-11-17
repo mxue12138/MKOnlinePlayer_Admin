@@ -20,7 +20,7 @@ function ajaxSearch() {
         type: mkPlayer.method, 
         url: mkPlayer.api, 
         data: "types=search&count=" + mkPlayer.loadcount + "&source=" + rem.source + "&pages=" + rem.loadPage + "&name=" + rem.wd,
-        dataType : "json",
+        dataType : "jsonp",
         complete: function(XMLHttpRequest, textStatus) {
             if(tmpLoading) layer.close(tmpLoading);    // 关闭加载中动画
         },  // complete
@@ -113,7 +113,7 @@ function ajaxUrl(music, callback)
         type: mkPlayer.method, 
         url: mkPlayer.api,
         data: "types=url&id=" + music.id + "&source=" + music.source,
-        dataType : "json",
+        dataType : "jsonp",
         success: function(jsonData){
             // 调试信息输出
             if(mkPlayer.debug) {
@@ -172,7 +172,7 @@ function ajaxPic(music, callback)
         type: mkPlayer.method, 
         url: mkPlayer.api,
         data: "types=pic&id=" + music.pic_id + "&source=" + music.source,
-        dataType : "json",
+        dataType : "jsonp",
         success: function(jsonData){
             // 调试信息输出
             if(mkPlayer.debug) {
@@ -208,7 +208,7 @@ function downloadPic (obj) {
             type: mkPlayer.method, 
             url: mkPlayer.api,
             data: "types=pic&id=" + music.pic_id + "&source=" + music.source,
-            dataType : "json",
+            dataType : "jsonp",
             success: function(jsonData){
                 if(mkPlayer.debug) {
                     console.log("歌曲封面：" + jsonData.url);
@@ -238,7 +238,7 @@ function downloadLrc (obj) {
         type: mkPlayer.method,
         url: mkPlayer.api,
         data: "types=lyric&id=" + music.lyric_id + "&source=" + music.source,
-        dataType : "json",
+        dataType : "jsonp",
         success: function(jsonData){
             layer.closeAll();
             if (mkPlayer.debug) {
@@ -281,7 +281,7 @@ function ajaxPlayList(lid, id, callback) {
         type: mkPlayer.method, 
         url: mkPlayer.api, 
         data: "types=playlist&id=" + lid,
-        dataType : "json",
+        dataType : "jsonp",
         complete: function(XMLHttpRequest, textStatus) {
             musicList[id].isloading = false;    // 列表已经加载完了
         },  // complete
@@ -372,7 +372,7 @@ function ajaxLyric(music, callback) {
         type: mkPlayer.method,
         url: mkPlayer.api,
         data: "types=lyric&id=" + music.lyric_id + "&source=" + music.source,
-        dataType : "json",
+        dataType : "jsonp",
         success: function(jsonData){
             // 调试信息输出
             if (mkPlayer.debug) {
@@ -403,7 +403,7 @@ function ajaxUserList(uid)
         type: mkPlayer.method,
         url: mkPlayer.api,
         data: "types=userlist&uid=" + uid,
-        dataType : "json",
+        dataType : "jsonp",
         complete: function(XMLHttpRequest, textStatus) {
             if(tmpLoading) layer.close(tmpLoading);    // 关闭加载中动画
         },  // complete
