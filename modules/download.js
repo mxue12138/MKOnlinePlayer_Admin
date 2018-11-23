@@ -3,26 +3,32 @@ let path = require('path');
 let request = require('request');
 
 module.exports = (req, res) => {
-  if (!req.body.url) {
+  let data;
+  if (req.method.toLowerCase() == 'get') {
+    data = req.query;
+  } else {
+    data = req.body;
+  }
+  if (!data.url) {
     res.json({
       code: 0,
       msg: '歌曲url有误'
     });
     return;
-  } else if (!req.body.name) {
+  } else if (!data.name) {
     res.json({
       code: 0,
       msg: '歌曲名称有误'
     });
     return;
-  } else if (!req.body.source) {
+  } else if (!data.source) {
     res.json({
       code: 0,
       msg: '歌曲类型有误'
     });
     return;
   }
-  let url = req.body.url;
+  let url = data.url;
   let protocol;
   if (url.substring(0, url.indexOf('://')) == 'https') {
     protocol = 'https://';
@@ -35,11 +41,11 @@ module.exports = (req, res) => {
     });
     return;
   }
-  let name = req.body.name;
-  let artist = req.body.artist ? ' - ' + req.body.artist : '';
-  let filename = (name + artist + path.extname(req.body.url).split('?')[0].split('#')[0]).replace('/', '&');
-  let filepath = process.cwd() + '/temp/' + req.body.source + '/' + filename;
-  let downpath = './temp/' + req.body.source + '/' + filename;
+  let name = data.name;
+  let artist = data.artist ? ' - ' + data.artist : '';
+  let filename = (name + artist + path.extname(data.url).split('?')[0].split('#')[0]).replace('/', '&');
+  let filepath = process.cwd() + '/temp/' + data.source + '/' + filename;
+  let downpath = './temp/' + data.source + '/' + filename;
   if (fs.existsSync(filepath)) {
     res.json({
       code: 1,

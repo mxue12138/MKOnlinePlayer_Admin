@@ -398,17 +398,10 @@ function download(music) {
         layer.msg('下载请求歌曲链接失败，请检查网络或稍后再试');
     }, 15000)
     $.ajax({ 
-        type: 'POST', 
+        type: mkPlayer.method, 
         url: './download',
         dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            url: music.url,
-            name: music.name,
-            artist: music.artist,
-            source: music.source,
-            id: music.id
-        }),
+        data: 'url=' + music.url + '&name=' + music.name + '&artist=' + music.artist + '&source=' + music.source,
         timeout: 15000,
         success: function(data){
             layer.closeAll();
