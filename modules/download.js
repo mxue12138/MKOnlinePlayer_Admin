@@ -30,15 +30,24 @@ module.exports = (req, res) => {
   } else {
     res.json({
       code: 0,
-      msg: 'url协议有误'
+      msg: '歌曲url协议有误'
     });
     return;
   }
   let name = req.body.name;
   let artist = req.body.artist ? ' - ' + req.body.artist : '';
-  let filename = name + artist + url.substring(url.lastIndexOf('.')).split('?')[0].split('#')[0];
-  filename = filename.replace('/', '&');
+  let filename = (name + artist + url.substring(url.lastIndexOf('.')).split('?')[0].split('#')[0]).replace('/', '&');
   let filepath = process.cwd() + '/temp/' + req.body.source + '/' + filename;
+  if (fs.existsSync(filepath)) {
+    res.json({
+      code: 1,
+      msg: '歌曲url获取成功',
+      data: {
+        url: './temp/' + req.body.source + '/' + filename
+      }
+    })
+    return;
+  }
   let oldhost = url.substring(url.indexOf('://') + 3);
   let host = oldhost.substring(0, oldhost.indexOf('/'));
   request.get({
@@ -49,10 +58,18 @@ module.exports = (req, res) => {
       'Origin': protocol + host,
       'Host': host
     }
+  }).on('response', function(response) {
+    if (response.statusCode == 404 || response.statusCode == 403 || response.statusCode == 502 || response.statusCode == 503) {
+      res.json({
+        code: 0,
+        msg: '歌曲url获取失败'
+      })
+      return;
+    }
   }).pipe(fs.createWriteStream(filepath).on('close', () => {
     res.json({
       code: 1,
-      msg: '音频url获取成功',
+      msg: '歌曲url获取成功',
       data: {
         url: './temp/' + req.body.source + '/' + filename
       }
