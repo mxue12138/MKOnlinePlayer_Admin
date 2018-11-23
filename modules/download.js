@@ -1,4 +1,5 @@
 let fs = require('fs');
+let path = require('path');
 let request = require('request');
 
 module.exports = (req, res) => {
@@ -36,14 +37,15 @@ module.exports = (req, res) => {
   }
   let name = req.body.name;
   let artist = req.body.artist ? ' - ' + req.body.artist : '';
-  let filename = (name + artist + url.substring(url.lastIndexOf('.')).split('?')[0].split('#')[0]).replace('/', '&');
+  let filename = (name + artist + path.extname(req.body.url).split('?')[0].split('#')[0]).replace('/', '&');
   let filepath = process.cwd() + '/temp/' + req.body.source + '/' + filename;
+  let downpath = './temp/' + req.body.source + '/' + filename;
   if (fs.existsSync(filepath)) {
     res.json({
       code: 1,
       msg: '歌曲url获取成功',
       data: {
-        url: './temp/' + req.body.source + '/' + filename
+        url: downpath
       }
     })
     return;
@@ -71,7 +73,7 @@ module.exports = (req, res) => {
       code: 1,
       msg: '歌曲url获取成功',
       data: {
-        url: './temp/' + req.body.source + '/' + filename
+        url: downpath
       }
     })
   }))
