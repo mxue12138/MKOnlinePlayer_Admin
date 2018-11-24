@@ -1,9 +1,11 @@
 let token = require(process.cwd() + '/tools/token');
 
 module.exports = (req, res) => {
-  if(token(req)) {
-    res.redirect('/admin/index.html');
-  } else {
-    res.render('admin/login');
-  }
+  token(req).then((data) => {
+    if (!data) {
+      res.render('admin/login');
+      return;
+    }
+    res.redirect('./index.html');
+  });
 }

@@ -15,11 +15,12 @@
     "http-errors": "~1.6.2",
     "md5": "^2.2.1",
     "morgan": "~1.9.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "mongoose": "^5.3.13"
   },
   "description": "本程序为MKOnlinePlayer的后台程序，后端使用node.js开发，前端基于MKOnlinePlayer，后台页面使用bootstrap和jquery开发，可以实现在线修改网站信息、对歌单进行增删改查、修改播放器配置等功能，并且不需要数据库。\r > \r > 本项目仅为个人学习参考，请勿用作商业用途，否则本人概不负责！\r >",
   "main": "app.js",
   "devDependencies": {},
-  "author": "mingxue<admin@itmxue.cn>",
+  "author": "mingxue <admin@itmxue.cn>",
   "license": "ISC"
 }
