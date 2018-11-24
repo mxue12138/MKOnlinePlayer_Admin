@@ -1,5 +1,7 @@
-let index = require(process.cwd() + '/tools/index');
+let model = require(process.cwd() + '/model/model');
 
 module.exports = (req, res) => {
-  res.render('index', { data: index.read() });
+  model.indexModel.findOne({}).select({ _id: 0 }).exec((err, indexData) => {
+    res.render('index', { data: indexData });
+  })
 }

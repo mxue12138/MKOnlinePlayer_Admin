@@ -6,6 +6,13 @@ var logger = require('morgan');
 
 var app = express();
 
+global.config = {
+  datahost: 'localhost',
+  database: 'music',
+  dataport: 27017,
+  datadebug: false
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -17,7 +24,7 @@ app.use(cookieParser());
 
 app.use('/', require('./routes/index'));
 app.use('/admin', require('./routes/admin'));
-app.use('/admin/api', require('./routes/api'));
+app.use('/api', require('./routes/api'));
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 

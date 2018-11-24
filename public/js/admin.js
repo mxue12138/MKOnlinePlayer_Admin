@@ -22,7 +22,7 @@ $(function () {
       return;
     }
     $.ajax({
-      url: '/admin/api/login',
+      url: '/api/login',
       type: 'POST',
       contentType: 'application/json',
       dataType: 'json',
@@ -41,7 +41,7 @@ $(function () {
   });
   $('.navbar .navbar-link').click(function () {
     $.ajax({
-      url: '/admin/api/logout',
+      url: '/api/logout',
       type: 'POST',
       dataType: 'json',
       success: function (data) {
@@ -62,12 +62,13 @@ $(function () {
         return;
       }
       music_list.push({
+        '_id': $('.music_list input').eq(i).data('id').trim(),
         'id': $('.music_list input').eq(i).val().trim()
       });
     }
     var that = $(this);
     $.ajax({
-      url: '/admin/api/music_list',
+      url: '/api/music_list',
       type: 'POST',
       contentType: 'application/json',
       dataType: 'json',
@@ -89,6 +90,7 @@ $(function () {
   });
   $('.music_list .add').click(function () {
     var clone = $(this).siblings('form').last().clone(true);
+    clone.find('.id').data('id', '');
     clone.find('.id').val('');
     clone.find('.link').hide()[0].href = '';
     $(this).siblings('form').last().after(clone);
@@ -98,19 +100,13 @@ $(function () {
     layer.confirm('确认要删除吗？', {
       btn: ['确认','取消']
     }, function(){
-      that.parent().parent().remove();
       var music_list = [];
-      for (var i = 0; i < $('.music_list input').length; i++) {
-        if (!$('.music_list input').eq(i).val().trim()) {
-          layer.msg('歌单不能为空');
-          return;
-        }
-        music_list.push({
-          'id': $('.music_list input').eq(i).val().trim()
-        });
-      }
+      music_list.push({
+        '_id': that.parent().siblings().find('input').data('id'),
+        'del': true
+      });
       $.ajax({
-        url: '/admin/api/music_list',
+        url: '/api/music_list',
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -119,6 +115,7 @@ $(function () {
         }),
         success: function (data) {
           if (data.code == 1) {
+            that.parent().parent().remove();
             layer.msg(data.msg);
           } else {
             layer.msg(data.msg);
@@ -138,7 +135,7 @@ $(function () {
       'notice': $('.index #notice').val().trim()
     }
     $.ajax({
-      url: '/admin/api/index',
+      url: '/api/index',
       type: 'POST',
       contentType: 'application/json',
       dataType: 'json',
@@ -176,7 +173,7 @@ $(function () {
       }
     }
     $.ajax({
-      url: '/admin/api/player',
+      url: '/api/player',
       type: 'POST',
       contentType: 'application/json',
       dataType: 'json',
@@ -205,7 +202,7 @@ $(function () {
         'password': $('.user #password').val().trim()
       }
       $.ajax({
-        url: '/admin/api/user',
+        url: '/api/user',
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
