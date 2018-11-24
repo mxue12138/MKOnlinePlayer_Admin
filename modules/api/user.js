@@ -11,7 +11,7 @@ module.exports = (req, res) => {
       return;
     }
     if (req.body.user) {
-      model.indexModel.updateOne({}, { $set: req.body.index }, (err) => {
+      model.userModel.updateOne({}, { $set: req.body.index }, (err) => {
         if (err) {
           res.json({
             code: 0,
