@@ -18,9 +18,9 @@
     <meta name="x5-fullscreen" content="true"><!--QQ强制全屏-->
     <meta name="x5-page-mode" content="app"><!--QQ应用模式-->
     
-    <title><%= data.title %></title>
-    <meta name="description" content="<%= data.description %>"/>
-    <meta name="keywords" content="<%= data.keywords %>"/>
+    <title>MKOnlinePlayer v2.4</title>
+    <meta name="description" content="一款开源的基于网易云音乐api的在线音乐播放器。具有音乐搜索、播放、下载、歌词同步显示、个人音乐播放列表同步等功能。"/>
+    <meta name="keywords" content="孟坤播放器,在线音乐播放器,MKOnlinePlayer,网易云音乐,音乐api,音乐播放器源代码"/>
     
     <!-- 不支持IE8及以下版本浏览器 -->
     <!--[if lte IE 8]>
@@ -44,28 +44,6 @@
     
     <!-- layer弹窗插件样式文件 -->
     <link rel="stylesheet" href="plugns/layer/skin/default/layer.css?v=3.0.2302" id="layuicss-skinlayercss">
-
-    <!-- 播放器配置和播放器列表 -->
-    <script>
-        var mkPlayer = {};
-        var musicList = {};
-        $.ajax({
-            url: './mkPlayer',
-            type: 'GET',
-            async: false,
-            success: function (data) {
-                mkPlayer = data.data;
-            }
-        });
-        $.ajax({
-            url: './musicList',
-            type: 'GET',
-            async: false,
-            success: function (data) {
-                musicList = data.data;
-            }
-        });
-    </script>
 </head>
 <body>
 
@@ -74,7 +52,7 @@
 <!-- 头部logo -->
 <div class="header">
     <div class="logo" title="Version 2.4; Based on Meting; Powered by Mengkun">
-        <%= data.logo_text %>
+        ♫ MKOnlinePlayer
     </div>
 </div>  <!--class="header"-->
 
@@ -121,7 +99,7 @@
             <a href="javascript:;" class="player-btn btn-prev" title="上一首"></a>
             <a href="javascript:;" class="player-btn btn-play" title="暂停/继续"></a>
             <a href="javascript:;" class="player-btn btn-next" title="下一首"></a>
-      <a href="javascript:;" class="player-btn btn-order" title="循环控制"></a>
+			<a href="javascript:;" class="player-btn btn-order" title="循环控制"></a>
         </div>  <!--class="con-btn"-->
         
         <div class="vol">
@@ -138,7 +116,6 @@
         <div class="progress">
             <div class="progress-box">  
                 <div id="music-progress" class="mkpgb-area"></div>
-                <div class="audio-time"></div>
             </div>
         </div>  <!--class="progress"-->
     </div>  <!--class="container"-->
@@ -153,6 +130,9 @@
 <!-- 播放器歌词解析模块 -->
 <script src="js/lyric.js"></script>
 
+<!-- 音乐列表配置 -->
+<script src="js/musicList.js"></script>
+
 <!-- 封装函数及ui交互模块 -->
 <script src="js/functions.js"></script>
 
@@ -164,22 +144,12 @@
 
 <!-- 背景模糊化插件 -->
 <script src="js/background-blur.min.js"></script>
-<% if (data.footer != '') { %>
+
 <!-- 站长统计代码 -->
 <span style="display: none">
-    <%- data.footer %>
+    <!-- 各类统计代码都放在这里…… -->
+    
 </span>
-<% } %><% if (data.notice_show) { %>
-<!-- layer弹窗代码 -->
-<script>
-    layer.open({
-        btn: ['我知道了'],
-        title: '公告',
-        shadeClose: 'true',
-        maxWidth: 340,
-        content: '<%- data.notice.replace(/[\r\n]/g, '') %>'
-    });
-</script>
-<% } %>
+
 </body>
 </html>
