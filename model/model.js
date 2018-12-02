@@ -1,7 +1,7 @@
 let mongoose = require('mongoose');
 
 mongoose.set('debug', config.debug);
-mongoose.connect('mongodb://' + config.datahost + ':' + config.dataport + '/' + config.database, { useNewUrlParser: true });
+mongoose.connect('mongodb://' + config.username + ':' + config.password + '@' + config.datahost + ':' + config.dataport + '/' + config.database, { useNewUrlParser: true });
 
 let indexSchema = new mongoose.Schema({
   title: String,
