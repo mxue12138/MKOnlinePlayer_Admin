@@ -1,4 +1,4 @@
-{
+module.exports = {
   "datahost": "localhost",  // 数据库的地址，默认localhost
   "database": "music",      // 数据库的名字，默认music
   "username": "",           // 数据库的登录账号，默认为空
