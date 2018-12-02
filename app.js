@@ -6,12 +6,7 @@ var logger = require('morgan');
 
 var app = express();
 
-global.config = {
-  datahost: 'localhost',
-  database: 'music',
-  dataport: 27017,
-  datadebug: false
-}
+global.config = eval('(' + require('fs').readFileSync('./config.json') + ')');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
