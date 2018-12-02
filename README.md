@@ -37,7 +37,7 @@ gogs：[https://gogs.itmxue.cn/mingxue/MKOnlinePlayer_Admin](https://gogs.itmxue
 
 1. 本项目依赖于node.js、pm2和MongoDB，需要先下载安装并配置环境变量，宝塔面板用户可以直接在软件管理下载“pm2”和MongoDB即可，安装完成以后进入下一步。
 2. 下载项目代码，下载地址（[https://gogs.itmxue.cn/mingxue/MKOnlinePlayer_Admin/archive/master.zip](https://gogs.itmxue.cn/mingxue/MKOnlinePlayer_Admin/archive/master.zip) ）或（[https://github.com/mxue12138/MKOnlinePlayer_Admin/archive/master.zip](https://github.com/mxue12138/MKOnlinePlayer_Admin/archive/master.zip) ）。
-3. 在服务器上新建一个网站，php版本默认或者选择纯静态都可以，然后选择反向代理，地址填``http://127.0.0.1:318``。
+3. 在服务器上新建一个网站，php版本默认或者选择纯静态都可以，然后选择反向代理，地址填``http://127.0.0.1:1128``。
 4. 在服务器上任意一个文件夹内上传刚才下载的压缩包（宝塔用户建议上传到``/www/wwwroot/``下），然后解压。解压后会有一个``MKOnlinePlayer_Admin_master``文件夹，里面就是所有的代码了。
 5. 然后将项目目录下的`` install``目录复制到MongoDB的bin目录里面，执行``.\mongorestore install``，数据库就导入了。
 6. 然后使用SSH软件登录服务器（比如putty等），然后进入到你的项目目录下，比如宝塔用户就是``/www/wwwroot/``，那么执行命令`` cd /www/wwwroot/MKOnlinePlayer_Admin_master/``，就进入了程序目录，然后执行``chmod 755 -R ./*``。

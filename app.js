@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 var app = express();
 
-global.config = eval('(' + require('fs').readFileSync('./config.json') + ')');
+global.config = require('./config.js');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
