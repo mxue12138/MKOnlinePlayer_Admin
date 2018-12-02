@@ -4,23 +4,6 @@
  * 编写：mengkun(https://mkblog.cn)
  * 时间：2018-3-13
  *************************************************/
-// 播放器功能配置
-var mkPlayer = {
-    api: "api.php", // api地址
-    loadcount: 20,  // 搜索结果一次加载多少条
-    method: "POST",     // 数据传输方式(POST/GET)
-    defaultlist: 3,    // 默认要显示的播放列表编号
-    autoplay: false,    // 是否自动播放(true/false) *此选项在移动端可能无效
-    coverbg: true,      // 是否开启封面背景(true/false) *开启后会有些卡
-    mcoverbg: true,     // 是否开启[移动端]封面背景(true/false)
-    dotshine: true,    // 是否开启播放进度条的小点闪动效果[不支持IE](true/false) *开启后会有些卡
-    mdotshine: false,   // 是否开启[移动端]播放进度条的小点闪动效果[不支持IE](true/false)
-    volume: 0.6,        // 默认音量值(0~1之间)
-    version: "v2.41",    // 播放器当前版本号(仅供调试)
-    debug: false   // 是否开启调试模式(true/false)
-};
-
-
 
 /*******************************************************
  * 以下内容是播放器核心文件，不建议进行修改，否则可能导致播放器无法正常使用!
@@ -180,9 +163,9 @@ function updateProgress(){
     // 暂停状态不管
     if(rem.paused !== false) return true;
     // 同步进度条
-    music_bar.goto(rem.audio[0].currentTime / rem.audio[0].duration);
-    // 同步歌词显示   
-    scrollLyric(rem.audio[0].currentTime);
+  music_bar.goto(rem.audio[0].currentTime / rem.audio[0].duration);
+    // 同步歌词显示 
+  scrollLyric(rem.audio[0].currentTime);
 }
 
 // 显示的列表中的某一项点击后的处理函数

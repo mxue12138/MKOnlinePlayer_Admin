@@ -9,12 +9,12 @@ router.get('/', (req, res) => {
   index(req, res);
 });
 
-router.get('/js/player.js', (req, res) => {
+router.get('/mkPlayer', (req, res) => {
   player(req, res);
-});
+})
 
-router.get('/js/musicList.js', (req, res) => {
+router.get('/musicList', (req, res) => {
   music_list(req, res);
-});
+})
 
 module.exports = router;
