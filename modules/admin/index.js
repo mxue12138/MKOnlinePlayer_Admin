@@ -9,7 +9,7 @@ module.exports = (req, res) => {
     }
     model.indexModel.findOne({}).select({ _id: 0 }).exec((err, indexData) => {
       model.playerModel.findOne({}).select({ _id: 0 }).exec((err, playerData) => {
-        model.listModel.find({ type: {'$ne': 'preset'}}).select({ type: 0 }).exec((err, listData) => {
+        model.listModel.find({ type: {'$ne': 'preset'}}).exec((err, listData) => {
           model.userModel.findOne({}).select({ _id: 0 }).where('isAdmin', true).exec((err, userData) => {
             res.render('admin/index', {
               music_list: listData,
